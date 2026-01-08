@@ -158,3 +158,114 @@
   ```
 
 - Example usage: managing focus, text selection, or integrating with third-party libraries that require direct DOM manipulation.
+
+## Routing
+
+- React Router is a popular library for handling routing in React applications.
+- It is Url end point
+- /: Home page, /about: About page, /contact: Contact page
+- Used to define which page or component to show or load based on the URL path.
+- React Router provides components like `BrowserRouter`, `Route`, `Switch`, and `Link` to manage routing in a React application.
+
+## Installation
+
+- To install React Router Dom, use the following command:
+
+  ```bash
+  npm install react-router-dom
+
+  ```
+
+## React Router
+
+- React Router is a library for routing in React applications.
+- Official website: [https://reactrouter.com/](https://reactrouter.com/)
+- It allows you to define routes and navigate between different components based on the URL.
+  npm install react-router
+
+- Syntax:
+  ```jsx
+  <Router>
+    <Switch>
+      <Route path="/path" component={Component} />
+    </Switch>
+  </Router>
+  ```
+
+## React Router Dom
+
+- React Router Dom is a package that provides routing capabilities for React applications.
+- Official website: [https://reactrouter.com/](https://reactrouter.com/)
+- It allows you to define routes and navigate between different components based on the URL.
+- Syntax:
+
+  ```jsx
+  <Router>
+    <Switch>
+      <Route path="/path" component={Component} />
+    </Switch>
+  </Router>
+  ```
+
+- Example:
+
+  ```jsx
+  import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+  import Home from "./Home";
+  import About from "./About";
+  import Contact from "./Contact";
+
+  function App() {
+    return (
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
+        </Switch>
+      </Router>
+    );
+  }
+  ```
+
+  ## Grouping Routes
+
+- You can group routes using the `Route` component to create nested routes.
+-
+- Example:
+
+  ```jsx
+  <Router>
+  <route path="dashboard">
+
+    <Route path="profile" component={Profile} />
+    <Route path="settings" component={Settings} />
+  </Router>
+
+  ```
+
+  ## Outlet
+
+- The `Outlet` component is used to render child routes in a parent route.
+- It acts as a placeholder for the child routes to be rendered.
+- it will be used to make fixed layout with changing content based on the route.
+- Syntax:
+
+  ```jsx
+  <Outlet />
+  ```
+
+- Example:
+
+  ```jsx
+  import { Outlet } from "react-router-dom";
+
+  function Dashboard() {
+    return (
+      <div>
+        <h1>Dashboard</h1>
+        <Outlet />
+      </div>
+    );
+  }
+  ```
