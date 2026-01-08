@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "./component/Card";
+import State from "./component/State";
 
 const App = () => {
   const name = "Ram";
@@ -11,14 +12,19 @@ const App = () => {
       <h2>Name: {name}</h2>
       <h2>Age: {age}</h2>
 
+      {/* <button
+        onClick={() => {
+          setStudents(["naruto", "hinata", "sakura"]);
+        }}
+      >
+        Fetech Students
+      </button> */}
+
+      <State />
+
       {students.map((student) => {
         <Card title={student} subtitle={"students"} />;
       })}
-
-      <Card title={"Card 1"} subtitle={"This is card 1"} />
-      <Card title={"Card 2"} subtitle={"This is card 2"} />
-      <Card title={"Card 3"} subtitle={"This is card 3"} />
-      <Card title={"Card 4"} subtitle={"This is card 4"} />
     </>
   );
 };

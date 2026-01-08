@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Card = ({ title, subtitle }) => {
+  const [isLiked, setIsLiked] = useState(false);
   return (
     <>
       <div
@@ -15,6 +16,14 @@ const Card = ({ title, subtitle }) => {
       >
         <h2>{title}</h2>
         <h2>{subtitle}</h2>
+        <h2>{isLiked ? "Liked" : "notLiked"}</h2>
+        <button
+          onClick={() => {
+            setIsLiked(true);
+          }}
+        >
+          Like
+        </button>
       </div>
     </>
   );
