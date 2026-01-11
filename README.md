@@ -2,12 +2,66 @@
 
 - A JavaScript library for building user interfaces.
 - Official website: [https://reactjs.org/](https://reactjs.org/)
-- React is libaray
+- React is libaray for web and natvie interface development.
+- It allows developers to create reusable UI components.
+- Used to bild single-page applications (SPAs) with dynamic and interactive user interfaces.]
+- Built by Facebook and maintained by a community of developers.
+- React uses a virtual DOM to efficiently update and render components.
+- It follows a component-based architecture, where the UI is divided into small, reusable components.
+- React supports both class-based and functional components.
+- It uses JSX (JavaScript XML) syntax to define components and their structure.
+- React has a rich ecosystem of libraries and tools for state management, routing, and testing.
+
+## Virtual DOM
+
+- Uses virtual DOM for rendering.
+- Virtual DOM is a lightweight copy of the actual DOM.
+- Whenever state change occurs:
+  -React updates the virtual DOM first.
+- Then it compares the virtual DOM with the previous actual DOM (Diffing algorithm).
+- Update the only changed parts in the actual DOM (Reconciliation).
+- This process improves performance and efficiency.
 
 ## components
 
-- Components are the building blocks of a React application.
-- They can be functional or class-based.
+- UI block, reusable code.
+- Functional (stateless) or class-based(Stateful).
+- Functional components can be made stateful using hooks.
+- Example of a functional component:
+
+  ```jsx
+  function Welcome(props) {
+    return <h1>Hello, {props.name}</h1>;
+  }
+  ```
+
+- Example of a class-based component:
+
+  ```jsx
+  class Welcome extends React.Component {
+    render() {
+      return <h1>Hello, {this.props.name}</h1>;
+    }
+  }
+  ```
+
+- Statless Components: UI cannot be updated, state can be updated.
+- Stateful Components: UI can be updated, state can be updated.
+  Components can have its own properties (props) and state.
+- A component must alwaus return one and only one parent element.
+- Example:
+
+  ```jsx
+  function App() {
+    return (
+      <div>
+        <Header />
+        <MainContent />
+        <Footer />
+      </div>
+    );
+  }
+  ```
 
 ## Props
 
@@ -20,10 +74,55 @@
   }
   ```
 
+## JSX
+
+- JSX (JavaScript XML) is a syntax extension for JavaScript that allows you to write HTML-like code within JavaScript.
+- JSX is used to define the structure and appearance of React components.
+- Js + HTML
+- JSX code is transpiled into regular JavaScript using tools like Babel.
+- JSX allows you to embed expressions and JavaScript logic within the markup.
+- JSX elements are represented as objects in JavaScript.
+- Syntax:
+
+  ```jsx
+  const element = <h1>Hello, world!</h1>;
+  ```
+
+- Example:
+  ```jsx
+  function App() {
+    const name = "John";
+    return <h1>Hello, {name}!</h1>;
+  }
+  ```
+
 ## State
 
 - State is a built-in object that allows components to manage their own data.
 - State can be modified using the `setState` method in class components or the `useState` hook in functional components.
+  eg:
+
+  ```jsx
+  class Counter extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { count: 0 };
+    }
+
+    increment = () => {
+      this.setState({ count: this.state.count + 1 });
+    };
+
+    render() {
+      return (
+        <div>
+          <p>Count: {this.state.count}</p>
+          <button onClick={this.increment}>Increment</button>
+        </div>
+      );
+    }
+  }
+  ```
 
 ## Hooks
 
@@ -265,6 +364,71 @@
       <div>
         <h1>Dashboard</h1>
         <Outlet />
+      </div>
+    );
+  }
+  ```
+
+## Link, route, NavLink, Navigate, browserRouter, Routes,
+
+- `Link`: Used to create navigational links between different routes.
+- `NavLink`: Similar to `Link`, but provides additional styling options for active links.
+- `Route`: Used to define a route and specify the component to render for that route.
+- `Navigate`: Used to programmatically navigate to a different route.
+- `BrowserRouter`: A router component that uses the HTML5 history API to keep the UI in sync with the URL.
+- `HashRouter`: A router component that uses the URL hash to keep the UI in sync with the URL.
+- `Routes`: A container component that holds all the `Route` components and renders the matching route based on the URL.
+- Example:
+
+  ```jsx
+  import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link,
+    NavLink,
+    Navigate,
+  } from "react-router-dom";
+
+  function App() {
+    return (
+      <Router>
+        <nav>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/about">About</NavLink>
+        </nav>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Router>
+    );
+  }
+  ```
+
+- In this example, we use `NavLink` for navigation, define routes using `Route`, and use `Navigate` to redirect any unknown routes to the home page.
+
+## react-icon
+
+- A popular library for adding icons to React applications.
+- Official website: [https://react-icons.github.io/react-icons/](https://react-icons.github.io/react-icons/)
+- It provides a wide range of icons from various icon libraries, such as Font Awesome, Material Design, and more.
+- To install react-icons, use the following command:
+
+  ```bash
+  npm install react-icons
+  ```
+
+- Example of using react-icons:
+
+  ```jsx
+  import { FaBeer } from "react-icons/fa";
+  function App() {
+    return (
+      <div>
+        <h1>Welcome to React Icons!</h1>
+        <FaBeer />
       </div>
     );
   }
