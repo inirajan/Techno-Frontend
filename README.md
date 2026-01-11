@@ -433,3 +433,25 @@
     );
   }
   ```
+
+## Props Drilling(don't use )
+
+- Props drilling is the process of passing data from a parent component to a deeply nested child component through multiple layers of intermediate components.
+- It can lead to code that is difficult to maintain and understand, especially in large applications with
+  many nested components.
+- Example:
+
+  ```jsx
+  function Grandparent() {
+    const data = "Hello from Grandparent!";
+    return <Parent data={data} />;
+  }
+
+  function Parent(props) {
+    return <Child data={props.data} />;
+  }
+
+  function Child(props) {
+    return <h1>{props.data}</h1>;
+  }
+  ```
