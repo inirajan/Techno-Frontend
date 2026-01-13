@@ -256,3 +256,202 @@ import "@styles/global.css";
 - You can use `getServerSideProps`, `getStaticProps`, and `getStaticPaths` for data fetching
 - You can create API routes in the `pages/api` directory
 - It is recommended to use either App Router or Pages Router in a single project, not both
+
+## NextJs Routing
+
+// make short points
+
+- NextJs uses file/folder based routing
+- All routes must be inside the "/app" folder (for App Router) or "/pages" folder (for Pages Router)
+- Each file inside these folders represents a route
+- Every route(folders) must have a "page.js" file or "page.tsx" file
+- page.js / page.tsx must have a default exported component
+- The name of the file represents the route path
+  - index.js / index.tsx represents the root route "/"
+  - about.js / about.tsx represents the "/about" route
+- Nested folders represent nested routes
+  - e.g. /app/dashboard/page.js represents the "/dashboard" route
+
+## Example of Creating a Route
+
+1. Simple Route
+
+- Create a folder inside "/app"
+  - e.g. "about"
+- Create a page.js file inside the "about" folder
+- Add a default exported component inside page.js
+  - e.g.
+    ```javascript
+    export default function About() {
+      return <h1>About Page</h1>;
+    }
+    ```
+- Access the route via "http://localhost:3000/about" in the browser
+
+2. Nested Route(route inside another route)
+
+- Create a folder inside "/app"
+  - e.g. "dashboard
+- Create another folder inside the "dashboard" folder
+  - e.g. "settings"
+- Create a page.js file inside the "settings" folder
+- Add a default exported component inside page.js
+  - e.g.
+    ```javascript
+    export default function Settings() {
+      return <h1>Dashboard Settings Page</h1>;
+    }
+    ```
+- Access the route via "http://localhost:3000/dashboard/settings" in the browser
+
+3. Dynamic Route
+
+- Create a folder inside "/app" enclosed in square []brackets ("/products/[id]")
+- folder structer:
+  - app
+    - products
+      - [id]
+        - page.js
+- Create a page.js file inside the "[id]" folder
+- Add a default exported component inside page.js
+
+  - e.g.
+    ```javascript
+    export default function Product({ params }) {
+      return <h1>Product ID: {params.id}</h1>;
+    }
+    ```
+
+- this params is promised object which contains all the dynamic route parameters
+- so we should use async function to get the params
+- final code:
+
+  ```javascript
+  export default async function Product({ params }) {
+    return <h1>Product ID: {params.id}</h1>;
+  }
+  ```
+
+- Access the route via "http://localhost:3000/products/1" in the browser
+- Route:"/products/:id"'
+
+4. Nested Dynamic Route
+
+- Create a folder inside "/app" enclosed in square []brackets ("/users/[userId]/posts/[postId]")
+- folder structer:
+  - app
+    - users
+      - [userId]
+        - posts
+          - [postId]
+            - page.js
+- Create a page.js file inside the "[postId]" folder
+- Add a default exported component inside page.js
+  - e.g.
+    ```javascript
+    export default async function Post({ params }) {
+      return (
+        <h1>
+          User ID: {params.userId}, Post ID: {params.postId}
+        </h1>
+      );
+    }
+    ```
+- Access the route via "http://localhost:3000/users/1/posts/10" in the browser
+- Route:"/users/:userId/posts/:postId"
+
+5. Catch-All segment (means it will catch all the routes after the specified route path)
+
+- "/news/general/politics/local"
+- "/news/general/eduction/university/tu/ioe/bitech"
+- "/news/genreal/eduction/board/see"
+- "/news/weather/today"
+- "/news/sports/football/men"
+- "/news/sports/tennis/women"
+- Folder structure: "/news/[...slug]"
+
+- To craete a catch-all segment, create a folder inside "/app" enclosed in square []brackets with three dots before the name
+- folder structer:
+  - app
+    - news
+      - [...slug]
+        - page.js
+- Create a page.js file inside the "[...slug]" folder
+- Add a default exported component inside page.js
+
+  - e.g.
+
+    ```javascript
+    export default async function News({ params }) {
+      return <h1>News Slug: {params.slug.join("/")}</h1>;
+    }
+    ```
+
+- params is a promised object which contains all the dynamic route parameters that comes in array form
+- Here, params.slug is an array containing all the segments after "/news/"
+- So, we use join("/") to convert the array into a string with "/" separator
+- final code:
+
+  ```javascript
+  export default async function News({ params }) {
+    return <h1>News Slug: {params.slug.join("/")}</h1>;
+  }
+  ```
+
+- Access the route via "http://localhost:3000/news/general/politics/local" in the browser
+- Access the route via "http://localhost:3000/news/weather/today
+
+6. Route Groups
+
+- Route groups allow you to group related routes together without affecting the URL structure.
+- Route: "/login" ,"/register" ,"/forgot-password"
+- But is should be in or group with "/auth" folder
+- Name the "/auth" as "(auth)" to make it a route group
+- folder structer:
+  - app
+    - (auth)
+      - login
+        - page.js
+      - register
+        - page.js
+      - forgot-password
+        - page.js
+- Create page.js files inside each folder
+- Add default exported components inside each page.js
+  - e.g.
+    ```javascript
+    // login/page.js
+    export default function Login() {
+      return <h1>Login Page</h1>;
+    }
+    ```
+- Access the routes via "http://localhost:3000/login", "http://localhost:3000/register", "http://localhost:3000/forgot-password" in the browser
+- The URL structure remains unaffected by the route group
+
+7. Private folders ()
+
+- Private routes are routes that require authentication to access.
+- You can create a higher-order component (HOC) to wrap your private routes and check
+- To make private folder,
+- "\_foldername" (underscore before the folder name)
+- e.g. "/\_dashboard"
+- folder structer:
+  - app
+    - \_dashboard
+      - page.js
+
+8. Not found page/route
+
+- To create a custom 404 Not Found page, create a file named `not-found.js` inside the `app` directory or any subdirectory.
+- Example:
+  - folder structer:
+    - app
+      - not-found.js
+- Add a default exported component inside `not-found.js`
+  - e.g.
+    ```javascript
+    export default function NotFound() {
+      return <h1>404 - Page Not Found</h1>;
+    }
+    ```
+- This component will be rendered whenever a user navigates to a route that does not exist in your application.
