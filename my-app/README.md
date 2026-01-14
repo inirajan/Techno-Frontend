@@ -229,9 +229,7 @@ import "@styles/global.css";
 
 - To get started with the App Router, make sure you are using Next.js 13 or later and create an `app` directory in the root of your project. From there, you can start building your pages and layouts using the new routing system.
 
-** Notes: **
-
-// make is short notes
+\*\* Notes:
 
 - src/app
 - In app folder, you cannot reaname page.js and layout.js to other names. They are reserved names and you can change the coder inside them but not the file names.
@@ -246,6 +244,7 @@ import "@styles/global.css";
 - You can use 'use client' directive at the top of the file to make it a client component
 - You can use server components by default without any directive
 - You can use CSS modules, global CSS, and other styling methods in the app router
+  \*\*
 
 ## Pages Router in NextJs
 
@@ -258,8 +257,6 @@ import "@styles/global.css";
 - It is recommended to use either App Router or Pages Router in a single project, not both
 
 ## NextJs Routing
-
-// make short points
 
 - NextJs uses file/folder based routing
 - All routes must be inside the "/app" folder (for App Router) or "/pages" folder (for Pages Router)
@@ -455,3 +452,125 @@ import "@styles/global.css";
     }
     ```
 - This component will be rendered whenever a user navigates to a route that does not exist in your application.
+
+## NexJs Files
+
+**Note: The file name listed bewlow should be exactly the same as mentioned. You cannot rename them to other names.**
+
+- page.js (routing): Defines a route and its content
+- not-found.js (404 handling): Custom 404 Not Found page
+- layout.js (layout)/ layout.tsx: Defines a common layout for pages in the folder
+
+## Layout.js
+
+- layout.js is used to define a common layout for all the pages inside a folder
+- It is created inside a folder where you want to apply the layout
+- layout.js must have a default exported component
+- The layout component receives a special prop called "children" which represents the content of the specific page
+
+- Example:
+
+```javascript
+export default function Layout({ children }) {
+  return (
+    <div>
+      <header>
+        <h1>My Website</h1>
+      </header>
+      <main>{children}</main> {/* Page content will be rendered here */}
+      <footer>
+        <p>&copy; 2024 My Website</p>
+      </footer>
+    </div>
+  );
+}
+```
+
+## Nested Layouts
+
+- user layout inside the route(folder)
+- You can create nested layouts by defining `layout.js` files in subfolders
+- Each layout will apply to all pages and sub-layouts within its folder
+- Example:
+
+```javascript
+// app/layout.js (global layout)
+export default function RootLayout({ children }) {
+  return (
+    <div>
+      <header>
+        <h1>Global Header</h1>
+      </header>
+      <main>{children}</main>
+      <footer>
+        <p>Global Footer</p>
+      </footer>
+    </div>
+  );
+}
+```
+
+```javascript
+// app/dashboard/layout.js (dashboard layout)
+export default function DashboardLayout({ children }) {
+  return (
+    <div>
+      <nav>
+        <h2>Dashboard Navigation</h2>
+      </nav>
+      <section>{children}</section>
+    </div>
+  );
+}
+```
+
+```javascript
+// app/dashboard/settings/page.js (specific page)
+export default function SettingsPage() {
+  return <h3>Dashboard Settings Page</h3>;
+}
+```
+
+## Optimization in NextJs(Image Optimization)
+
+- NextJs provides built-in image optimization using the `next/image` component.
+- It automatically optimizes images for size and quality, improving performance.
+- To use it, import the `Image` component from `next/image` and use it in your components.
+
+```javascript
+import Image from 'next/image';
+export default function MyComponent() {
+  return (
+    <div>
+      <Image
+        src="/path/to/image.jpg" // Path to your image
+        alt="Description of image"
+        width={600} // Desired width
+        height={400} // Desired height
+      />
+    </div>
+  );
+}
+---
+
+** Notes:  width and height define the resolution of the image**
+```
+
+## Link Component in NextJs
+
+- NextJs provides a built-in `Link` component for client-side navigation between routes.
+- It enables faster navigation by prefetching linked pages in the background.
+- To use it, import the `Link` component from `next/link` and wrap it around anchor tags or other elements.
+
+```javascript
+import Link from "next/link";
+export default function MyComponent() {
+  return (
+    <div>
+      <Link href="/about">
+        <a>About Us</a>
+      </Link>
+    </div>
+  );
+}
+```
